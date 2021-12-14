@@ -7,10 +7,10 @@ using System.Xml.Linq;
 
 namespace PersonE3
 {
-    class Person
+    public class Person
     {
         // required properties:    
-        private string fName; // 1–10 characters
+        private string fName; // 2–10 characters
         private string lName; // 2–15 characters
 
         // optional properties; default = 0
@@ -36,8 +36,8 @@ namespace PersonE3
             {
                 string validatedName = ToValidName(value);
                 int len = validatedName.Length;
-                if (len < 2 || len > 10)
-                    throw new ArgumentException("FName: 1 to 10 name-characters expected!");
+                if (len < 3 || len > 10)
+                    throw new ArgumentException("FName: 2 to 10 name-characters expected!");
 
                 else fName = validatedName;
             }
@@ -100,37 +100,44 @@ namespace PersonE3
         */
         public override string ToString() => $"\nfName: {fName}\nlName: {lName}\nage: {age} years\nheight: {Math.Round(height, 1)} cm\nweigth: {Math.Round(weight, 1)} kg";
 
+        /// <summary>
+        /// ToValidName returns a cleaned up nameIn-argument as follows:
+        /// • It will keep the english letters, ÅÄÖ, single spaces and hyphens in both lower and upper cases.
+        ///   Their ascii values are: A..Z = 65..90; a..z = 97..122; Å=197, å=229, Ä=196, ä=228, Ö=214 and ö=246
+        ///   
+        /// • A single space (ascii=32) or hyphen (ascii=45) is allowed between the words.
+        /// 
+        /// • Just the very first letter of the word(s) are captalized to allow f.ex. imput of McClean.
+        /// 
+        /// • If nameIn is null or doesn't contain any valid characters, an empty string ("") is returned.
+        /// </summary>
+        /// <param name="nameIn"></param>
+        /// <returns></returns>
         public static string ToValidName(string nameIn)
 
         {
-            /* 
-             * Keeps the english letters, ÅÄÖ, single spaces and hyphens.
-             * The valid ascii letters with their ascii-numbers: A..Z = 65..90; a..z = 97..122; Å=197, å=229, Ä=196, ä=228, Ö=214 and ö=246
-             * A single space (ascii=32) or hyphen (ascii=45) is allowed between the words.
-             * 
-             * Just the very first letter of the word(s) are captalized to allow f.ex. imput of McClean
-            */
+            if (nameIn == null) return "";
+
             const int SPACE_ASCII = 32, HYPHEN_ASCII = 45;
 
             int ascii = 0, pos = 0;
 
-            // amount spaces and hyphens between names are limited to singles
+            // only one space or hyphen between the names
             int spaces = 0, hyphens = 0;
             bool prevHyphen = false, prevSpace = false;
 
             // make sure there is something to check
-            if (nameIn == null) return "";
             string unvalidatedName = nameIn.Trim();
             if (unvalidatedName.Length == 0) return "";
 
-            // init for possibly preceding hyphen
-            if (unvalidatedName.Substring(0, 1).Equals("-"))
+            // init for preceding hyphen
+            if (unvalidatedName[..1].Equals("-"))
             {
                 hyphens++;
                 prevHyphen = true;
             }
 
-            // collect the valid characters
+            // characters to keep is added into charList
             StringBuilder charList = new();
 
             foreach (char ch in unvalidatedName)
@@ -158,7 +165,7 @@ namespace PersonE3
                     {
                         if (prevSpace == true)
                         {
-                            // remove the last space to prevent " -"
+                            // remove the last space to prevent input of " -"
                             charList.Length--;
                             prevSpace = false;
                         }
@@ -178,7 +185,7 @@ namespace PersonE3
 
                     else charList.Append(ch);
 
-                    // Reset
+                    // prepare for next round
                     spaces = 0;
                     hyphens = 0;
                     prevHyphen = false;
@@ -186,16 +193,19 @@ namespace PersonE3
                 }
             }
 
-            // make a validated name-string to return
+            /*
+             * return a validated name-string; which is either a blank
+             * string or a validated string without a concluding hyphen
+             */
             string validName = charList.ToString();
 
-            pos = validName.Length - 1;
+            pos = validName.Length - 1; // position of the last character
 
-            if (pos == -1)
-                return ""; // nothing to return
+            if (pos < 0) 
+                return ""; // nothing valid to return
 
             else if (validName.Substring(pos, 1).Equals("-"))
-                return validName.Substring(0, pos); // exclude the concluding hyphen
+                return validName[..pos]; // exclude the concluding hyphen
 
             else return validName;
         }
