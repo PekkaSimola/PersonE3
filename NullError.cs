@@ -8,6 +8,6 @@ namespace PersonE3
 {
     internal class NullError : UserError
     {
-        public override string UEMessage() => "Null is invalid for the current data type. This triggered a NullError!";
+        public override string UEMessage() => "Null is invalid for the current data type; NullError triggers!";
     }
 }

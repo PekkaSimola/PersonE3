@@ -18,6 +18,7 @@ namespace PersonE3
         private double height; // unit: centimeters
         private double weight; // unit: kilograms
 
+        #region Contructers:
         public Person(string fName, string lName) : this(fName, lName, 0, 0d, 0d) { }
 
         public Person(string fName, string lName, int age, double height, double weight) // give all properties
@@ -29,6 +30,9 @@ namespace PersonE3
             Weight = weight;
         }
 
+        #endregion
+
+        #region Properties:
         public string FName
         {
             get { return fName; }
@@ -92,6 +96,10 @@ namespace PersonE3
                 else weight = Math.Round(value); // limit to 3 decimals
             }
         }
+
+        #endregion
+
+        #region Methods:
 
         /*
         * Returns all the private fields from its instance as a string.
@@ -209,5 +217,7 @@ namespace PersonE3
 
             else return validName;
         }
+
+        #endregion 
     }
 }

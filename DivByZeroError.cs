@@ -8,6 +8,6 @@ namespace PersonE3
 {
     internal class DivByZeroError : UserError 
     {
-        public override string UEMessage() => "Division by zero occured. The results infinity, can't be handled by any type of variable!";
+        public override string UEMessage() => "Division by zero occured. An \"infinity-value\" can't be handled by any numeric type!";
     }
 }

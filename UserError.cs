@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PersonE3
 {
+    /// <summary>
+    /// Base Class of all Error Subclasses
+    /// </summary>
     internal abstract class UserError
     {
         public abstract string UEMessage(); // abstract method: Force my wonderful inheritance to all the children, grandchildren, etc.

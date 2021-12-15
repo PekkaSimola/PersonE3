@@ -57,7 +57,7 @@ namespace PersonE3
             //  
             // Fråga 3.3.9: Värför kan man inte lägga Horse i en lista av Dogs?
             // Svar: Horse är helt enkelt inte en Dog och kan inte konverteras till en Dog.
-            //       De gemensamma för dem är Animal-klassen, och därför gick det bra att
+            //       Den gemensamma är Animal-klassen, och därför går det bra att
             //       lägga dem i en lista av Animal.
             //  
             // Fråga 3.3.10: Vilken listtyp är gemensam för alla djuren?

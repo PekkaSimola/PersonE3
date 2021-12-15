@@ -29,6 +29,7 @@ namespace PersonE3
 
     }
 
+    #region Subclasses (children) to Animal
     internal class Horse : Animal
     {
         public string Color { get; set; }
@@ -116,10 +117,6 @@ namespace PersonE3
         public override string Stats() => $"Name: {Name}\n\t • Weight: {Weight} kg; Age: {Age} years; Color: {Color}";
     }
 
-    /// <summary>
-    /// Classes related to Bird-type of animals.
-    /// Base-class is Bird
-    /// </summary>
     internal class Bird : Animal
     {
         public double WingSpan { get; set; }
@@ -137,6 +134,9 @@ namespace PersonE3
         public override string Stats() => $"Name: {Name}\n\t • Weight: {Weight} kg; Age: {Age} years; WingSpan: {WingSpan} cm";
     }
 
+    #endregion
+
+    #region Subclasses (children) to Bird, and grandchildren to Animal
     internal class Pelican : Bird
     {
         public string Color { get; set; }
@@ -188,12 +188,15 @@ namespace PersonE3
         public override string Stats() => $"Name: {Name}\n\t • Weight: {Weight} kg; Age: {Age} years; WingSpan: {WingSpan} cm; Color: {Color}";
     }
 
+    #endregion
+
+    #region Subclass (child) to Wolf and the contracter to IPerson. It's also grandchild to Bird, and great grandchild to Animal.
     internal class Wolfman : Wolf, IPerson
     {
         public double SnoutLength { get; set; }
 
         public Wolfman(string name, double weight, double age, string color, double snoutLength) : base(name, weight, age, color)
-        { 
+        {
             SnoutLength = snoutLength;
         }
 
@@ -213,6 +216,7 @@ namespace PersonE3
          *    Personal opinion: This feels kind of "unnecessay", because the Wolfman-class contains
          *    the implementation of the Talk method. But I have't found a way around it.
          */
+
         void IPerson.Talk()
         {
             Console.WriteLine("Wolfman in its humanoid form is saying arrggrrr.");
@@ -222,4 +226,5 @@ namespace PersonE3
 
     }
 
+    #endregion
 }

@@ -8,6 +8,6 @@ namespace PersonE3
 {
     internal class TextInputError : UserError 
     {
-        public override string UEMessage() => "You tried to use a text input in a numeric-only field. Fhis fired an error!";
+        public override string UEMessage() => "You tried to use a text input in a numeric-only field. This fired an error!";
     }
 }

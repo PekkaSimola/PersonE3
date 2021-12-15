@@ -8,6 +8,6 @@ namespace PersonE3
 {
     internal class OutOfRangeError : UserError
     {
-        public override string UEMessage() => "The input can't fit within the current data type. This triggered an OutOfRange-error!";
+        public override string UEMessage() => "The input can't fit within the current data type; an OutOfRange-error triggers!";
     }
 }
